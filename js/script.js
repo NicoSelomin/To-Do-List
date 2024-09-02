@@ -17,4 +17,28 @@ function addTask(){
         li.appendChild(span);
     }
     inputBox.value = '';
+    saveData();
 }
+
+listContainer.addEventListener("click", function(e){
+    //Si on clique sur l'élément li
+    if(e.target.tagName === 'LI'){
+        e.target.classList.toggle("checked");
+        saveData()
+    }
+    //Si on clique sur l'élément span
+    else if(e.target.tagName === 'SPAN'){ 
+        e.target.parentElement.remove();
+        saveData()
+    }
+}, false);
+
+//Fonction pour enregistrer les task même si on ferme le navigateur
+function saveData(){
+    localStorage.setItem("data", listContainer.innerHTML);
+}
+
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("data");
+}
+showTask();
