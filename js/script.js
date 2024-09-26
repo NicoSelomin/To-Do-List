@@ -12,26 +12,44 @@ function addTask(){
         li.innerHTML = inputBox.value;
         listContainer.appendChild(li);
         //création de l'icon pour supprimer
+        let span1 = document.createElement('span');
         let span = document.createElement('span');
-        span.innerHTML = '\u00d7';
+        span.innerHTML = `<i class="bi bi-x-lg"></i>`;
+        span1.innerHTML = `<i class="bi bi-pencil-square"></i>`;
+        span.classList.add('remove');
+        span1.classList.add('edit');
+        li.appendChild(span1);
         li.appendChild(span);
+        
     }
     inputBox.value = '';
     saveData();
 }
 
-listContainer.addEventListener("click", function(e){
-    //Si on clique sur l'élément li
-    if(e.target.tagName === 'LI'){
+listContainer.addEventListener("click", function(e) {
+    // Si on clique sur l'élément li
+    if (e.target.tagName === 'LI') {
         e.target.classList.toggle("checked");
-        saveData()
+        saveData();
     }
-    //Si on clique sur l'élément span
-    else if(e.target.tagName === 'SPAN'){ 
+    // Si on clique sur l'élément span avec la classe 'remove'
+    else if (e.target.classList.contains('remove')) {
         e.target.parentElement.remove();
-        saveData()
+        saveData();
+    }
+    // Si on clique sur l'élément span avec la classe 'edit'
+    else if (e.target.classList.contains('edit')) {
+        // Récupère l'élément li parent
+        let li = e.target.parentElement;
+        // Ouvre un prompt pour modifier le texte
+        let newText = prompt("Modifier la tâche:", li.firstChild.textContent);
+        if (newText) {
+            li.firstChild.textContent = newText;
+            saveData();
+        }
     }
 }, false);
+
 
 //Fonction pour enregistrer les task même si on ferme le navigateur
 function saveData(){

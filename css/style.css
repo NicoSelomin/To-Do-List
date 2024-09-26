@@ -69,6 +69,7 @@ ul li{
     padding: 12px 8px 12px 50px;
     cursor: pointer;
     position: relative;
+    word-wrap: break-word;
 }
 
 ul li::before{
@@ -104,6 +105,9 @@ ul li span{
     color: #555;
     text-align: center;
     border-radius: 50%;
+}
+ul li span:first-child{
+    margin-right: 50px;
 }
 
 ul li span:hover{
